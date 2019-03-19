@@ -1,0 +1,42 @@
+<html>
+<head>
+	<title>MovieCard : Login</title>
+	<link rel= "stylesheet" type= "text/css" href= "css/home.css">
+</head>
+<body>
+	<div>
+		<div class= "loginFrontPage">
+		<h1 style= "font-family:Arial Black;text-align:center">
+			Login Page
+		</h1>
+		<form name= "login">
+			<p>Username&emsp;<id= "space"><input type= "email" name= "userid" id= "user"/></p>
+			<p>Password&emsp;&nbsp;<input type= "password" name= "pass" id= "pass"/></p>
+			<p><input type= "button" onclick= "check(this.form)" value= "Login"/>
+			&emsp;&emsp;&emsp;
+			<input type= "reset" value= "Reset"/></p>
+		</form>
+		</div>
+	</div>
+	<script language= "javascript">
+	
+	//Function to validate login form
+	function check(form){
+ 		if(form.userid.value == "reshma@gmail.com" && form.pass.value == "123"){
+  			var useremail = form.userid.value;
+  			window.location.href = "home.html?username=" + useremail;
+  		}
+ 		else{
+ 			if(form.userid.value=="" && form.pass.value=="")
+   				alert("Please enter a valid username and password");
+   			else if(form.userid.value=="")
+   				alert("Please enter a valid email");
+   			else if(form.pass.value=="")
+   				alert("Please enter a valid password");
+   			else if(form.userid.value!="reshma@gmail.com" && form.pass.value!="123")
+   				alert("Please enter a valid email and password");
+   		}
+	}
+</script>
+</body>
+</html>

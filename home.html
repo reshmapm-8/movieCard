@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>MovieCard : Home</title>
+	<link rel="stylesheet" type="text/css" href="css/home.css">
+</head>
+<body>
+	<div id= "maindiv">
+		<div class= "heading" id= "heading">
+			<div style= "float:right;">
+				<h2 style= "color: white" id= "name"></h2>
+			</div>
+			<div style= "float:left;">
+				<input type= "text" placeholder= "Search.." name= "search" id= "search" onkeyup= "searchMovie(this.value)">
+			</div>
+		</div>
+		<div id= "listdiv"></div>
+	</div>
+	<script type= "text/javascript">
+
+		var username = new URL(window.location.href);
+		var username = username.searchParams.get("username");
+		
+		document.getElementById('name').innerHTML = username;
+		
+		localStorage.setItem("movieObjectList",JSON.stringify([
+			{name: "Mr. and Ms. Rowdy",rating: 9.5,review :"Survival is the biggest challenge for someone, whose life has self-designed an image for them, that doesn't suit their basic nature. Mr and Ms Rowdy is a tale of a handful of 'accidental gangsters' who had a lousy start in their life.",image: "images/mr_and_ms.jpg",year:2018},
+			{name: "June",rating: 8.5,review :"The film starts out with the youngsters of June’s batch starting their first day of their Plus Two commerce class and spans the period from school to college, careers and married life. The nostalgia-inducing moments from school are rampant: the girls trying to hitch up their skirts when their mothers aren’t looking, the games, the competitions, the romance, the inspiring teacher, the icy sip ups.",image: "images/june.jpg",year:2018},
+			{name: "Neeyum Njnanum",rating: 7.5,review :"'Neeyum Njanum' is a love story, alright. But the plot goes beyond the realms of a conventional love story. It's a love story neatly packed in layers of thrill and comedy. With Sharaf U Dheen and Vishnu Unnikrishnan in the cast one is to expect comedy, no doubt. But given Sharaf U Dheen is the leading man here, his humour is quite subtle, honest and believable. ",image: "images/neeyum.jpg",year:2019 },
+			{name: "Joseph",rating: 9,review :"After successfully cracking a difficult murder, Joseph returns to an empty house only to open the box of memories he has of his ex-wife and daughter stacked away at every dark corner of his home. There are moments of happiness when he gets into flash back. As the movies progresses through a well-crafted, non-linear narrative we see the various facets of Joseph, turning into a depressed loner from a cheerful and enterprising family man.",image: "images/joseph.jpg",year:2018},
+			{name: "Allu Ramendran",rating: 7,review :"Kunchacko stars in a never-before seen avatar as a rigid policeman. It feels a bit strange to see the actor in a role that does not have him in his regular charming, cheerful self. Ramendran, who is a police driver, fails in his duty as the jeep he drives routinely gets punctured. This incident makes him a laughing stock among his colleagues and the public.",image: "images/allu.jpg",year:2017},
+			{name: "Praana",rating: 8,review :"The concept of a movie with one character immediately triggers curiosity as it is always interesting to figure out how one person can effectively manage to hold the attention of the audience for the duration of the film. For that, the movie will have to depend entirely on the shoulders of that one actor. Nithya as Tara does it. Her character interestingly communicates with the world using different properties such as toys, telephone, television, thoughts, words, books and sometimes even lights. ",image: "images/praana.jpg",year:2018},
+			{name: "Oru Adaar Love",rating: 8.2,review :"Shots of a youth festival fill the opening credits. While you might expect these images to have something to do with what is to follow, the movie begins with freshers walking into the higher secondary classes. This disjointed, clueless making style is a precursor what is to follow. It is love at first sight and in the first shot for Priya (Priya Prakash Varrier) and Roshan (Roshan Abdul Rahoof).",image: "images/oru.jpg",year:2018}]));
+		
+		var movieObjectListArray = JSON.parse(localStorage.getItem("movieObjectList"));
+		var divContent = "";
+		
+		//Display moviecards 
+		
+		for(var i = 0 ; i< movieObjectListArray.length; i++){
+			divContent = divContent + 
+			'<div class="moviecard"  onclick="review(' + i + ')" id="moviecard' + i + '">\
+				<div id="imageDiv">\
+					<img class="image" src="' + movieObjectListArray[i]["image"] + '">\
+				</div>\
+				<div>\
+					<h3 class="details">' + movieObjectListArray[i]["name"] + '</h3>\
+				</div>\
+				<div>\
+					<h5 class="details">' + movieObjectListArray[i]["rating"] + '/10</h5>\
+				</div>\
+			</div>';
+		}
+		
+		document.getElementById('listdiv').innerHTML = divContent;
+		
+		//function to display the details about a movie
+
+		function review(i){
+			var movieName = movieObjectListArray[i]["name"];
+			var review = movieObjectListArray[i]["review"];
+			var year = movieObjectListArray[i]["year"];
+			var rating = movieObjectListArray[i]["rating"];
+			window.location.href = "review.html?movieName="+movieName+"&review="+review+"&year="+year+"&rating="+rating+"&username="+username;
+		}
+
+		//function to perform search
+
+		var SearchString = "";
+		function searchMovie(SearchString){
+			var divContent = "";
+			for (var i = 0; i < movieObjectListArray.length; i++) {
+				var movie = movieObjectListArray[i]["name"];
+				movie = movie.toUpperCase(movie);
+				SearchString = SearchString.toUpperCase(SearchString);
+				if (movie.search(SearchString) > -1) {
+					divContent = divContent + 
+					'<div class="moviecard"  onclick="review(' + i + ')" id="moviecard' + i + '">\
+						<div id="imageDiv"><img class="image" src="' + movieObjectListArray[i]["image"] + '">\
+						</div>\
+						<div >\
+							<h3 class="details">' + movieObjectListArray[i]["name"] + 
+							'</h3>\
+						</div>\
+						<div>\
+							<h5 class="details">' + movieObjectListArray[i]["rating"] + '/10\
+							</h5>\
+						</div>\
+					</div>';
+				}
+			}
+			document.getElementById('listdiv').innerHTML = divContent;
+		}
+
+	</script>
+</body>
+</html>

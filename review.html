@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>MovieCard : Review</title>
+	<link rel= "stylesheet" type= "text/css" href= "css/home.css">
+</head>
+<body>
+	<div>
+		<div>
+			<div id= "heading" style= "width: 100%;height: 50px;background-color: black">
+			<h2 style= "color: white; text-align: right"; id= "username"></h2>
+			</div>
+		</div>
+		<div id= "NameAndReview">
+			
+		</div>
+	</div>
+	<script type= "text/javascript">
+
+		//get movie details
+		
+		var urlVariable = new URL(window.location.href);
+		var movieName = urlVariable.searchParams.get("movieName");
+		var review = urlVariable.searchParams.get("review");
+		var rating = urlVariable.searchParams.get("rating");
+		var year = urlVariable.searchParams.get("year");
+		var username = urlVariable.searchParams.get("username");
+		
+		document.getElementById('NameAndReview').innerHTML = 
+		'<div id="main"><h3> MOVIE : ' + movieName + '</h3><h4> YEAR : ' + year + '</h4><h4>RATING : ' + rating + '</h4><h4><p>REVIEW : ' + review + '</p></h4></div>';
+		document.getElementById('username').innerHTML = username;
+	</script>
+</body>
+</html>
